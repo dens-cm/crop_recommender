@@ -1,0 +1,144 @@
+@import url(https://fonts.googleapis.com/css?family=Exo:100);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter;
+}
+
+#main_bg {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#form {
+    background-color: rgb(255, 255, 255);
+    width: 60%;
+    height: 80%;
+    border-radius: 1vw;
+    box-shadow: .2vw .2vw 1.5vw rgba(163, 165, 165, 0.675);
+}
+
+#header {
+    display: flex;
+    height: 10%;
+    width: 100%;
+    align-items: center;
+    font-size: 2.3vh;
+    overflow: auto;
+}
+
+#header h2 {
+    margin: 0 0 0 1.5%;
+    font-size: 3vh;
+}
+
+#content {
+    height: 75%;
+    width: 100%;
+    display: flex;
+}
+
+#left {
+    width: 50%;
+}
+
+#information1 {
+    width: 100%;
+    height: 40%;
+    padding: 0 3% 0 3%;
+}
+
+#information1_header {
+    font-size: 2.2vh;
+    font-weight: bold;
+    margin: 5% 0 0 0;
+}
+
+#information1_text {
+    font-size: 2vh;
+    margin: 5% 0 0 0;
+}
+
+#information2 {
+    width: 100%;
+    height: 60%; 
+    padding: 0 3% 0 3%;
+}
+
+#information2 h5 {
+    font-size: 3vh;
+    margin: 0 0 3% 0;
+}
+
+#information2 h6 {
+    font-size: 2.7vh;
+    font-weight: 500;
+}
+
+#right {
+    width: 50%;
+    padding: 0 1% 0 1%;
+    overflow: auto;
+}
+
+#information3 {
+    width: 100%;
+    height: 20%;
+}
+
+#information4 {
+    width: 100%;
+    height: 80%;
+    box-sizing: border-box;
+}
+
+#information4 div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 3.5% 0 0 0;
+}
+
+#information4 div label {
+    font-size:2.5vh;
+}
+
+#information4 div input {
+    width: 100%;
+    height: 5.1vh;
+    border: 0;
+    border-radius: .3vw;
+    padding: 0 4% 0 4%;
+    margin: 1% 0 0 0;
+    background-color: rgb(228, 228, 228);
+}
+
+#information4 button {
+    width: 100%;
+    height: 12%;
+    margin: 7% 0 10% 0;
+    border-radius: .3vw;
+    border: 0;
+    cursor: pointer;
+    background-color: cadetblue;
+    font-size: 1vw;
+    font-weight: bold;
+    color: white;
+}
+
+#result {
+    height: 15%;
+    display: flex;
+    justify-content: left;
+    padding: 0 0 0 1.5%;
+    align-items: center;
+}
+
+#result h1 {
+    font-size: 1.7vw;
+}

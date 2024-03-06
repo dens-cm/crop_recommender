@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+    <title>Crop Recommendation</title>
+</head>
+<body>
+    <div id="main_bg">
+        <div id="form">
+            <div id="header">
+                <h2>Crop Recommendation</h2>
+                <img src="" alt="logo">
+            </div>
+            <div id="content">
+                <div id="left">
+                    <div id="information1">
+                        <p id="information1_header">Information</p>
+                        <p id="information1_text">Crop recommendation is one of the most important aspects of precision agriculture. Crop recommendation are based on a number of factors. </p>
+                    </div> 
+                    <div id="information2">
+                        <h5>How does it work?</h5>
+                        <h6>Complete all the parameters and the machine learning model will predict the most suitable crops to grow in a particular farm based on various parameters </h6>
+                    </div> 
+                </div>
+                <div id="right">
+                    <div id="information3">
+                        <h3>Find out the most suitable crop to grow in your farm </h3>
+                    </div>
+                    <form id="information4">
+                        <div>
+                            <label for="soil">Type of soil:</label>
+                            <input required type="text" name="soil" id="soil" placeholder="Enter type of soil">
+                        </div>
+                        <div>
+                            <label for="temp">Temperature:</label>
+                            <input required type="text" name="temp" id="temp" placeholder="Enter temperature">
+                        </div>
+                        <div>
+                            <label for="humi">Humidity in percentage:</label>
+                            <input required type="text" name="humi" id="humi" placeholder="Enter humidity">
+                        </div>
+                        <div>
+                            <label for="ph">Ph:</label>
+                            <input required type="text" name="ph" id="ph" placeholder="Enter ph">
+                        </div>
+                        <div>
+                            <label for="rain">Rainfall in mm</label>
+                            <input required type="text" name="rain" id="rain" placeholder="Enter rainfall in mm">
+                        </div>
+                        <button>RECOMMEND</button>
+                    </form>
+                </div>
+            </div>
+            <div id="result">
+                <h1 id="model_result">{{ result }}</h1>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('information4');
+        const resultElement = document.getElementById('model_result');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            fetch('/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultElement.innerText = data.result;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
+</html>
