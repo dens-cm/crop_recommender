@@ -102,10 +102,8 @@ function mapToCropName(prediction) {
         3: 'Maize',
         4: 'Mango',
         5: 'Mungbean',
-        6: 'Orange',
-        7: 'Papaya',
-        8: 'Rice',
-        9: 'Watermelon',
+        6: 'Papaya',
+        7: 'Rice',
     };
 
     return cropMapping[prediction] || 'Failed to recommend crop';
