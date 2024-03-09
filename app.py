@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, jsonify
 import joblib
 import numpy as np
+import os
 
 app = Flask(__name__)
 
 #load the trained model
-knn_model = joblib.load('.\\model\\knn_model2.joblib')
+model_path = Path(__file__).resolve().parent / 'model' / 'knn_model2.joblib'
+knn_model = joblib.load(model_path)
 
 @app.route('/')
 def index():
