@@ -6,8 +6,7 @@ import os
 app = Flask(__name__)
 
 #load the trained model
-model_path = Path(__file__).resolve().parent / 'model' / 'knn_model2.joblib'
-knn_model = joblib.load(model_path)
+knn_model = joblib.load('knn_model2.joblib')
 
 @app.route('/')
 def index():
