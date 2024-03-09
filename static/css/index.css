@@ -1,10 +1,13 @@
-@import url(https://fonts.googleapis.com/css?family=Exo:100);
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Inter;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+}
+
+body {
+    background-color: rgb(237, 237, 237);
 }
 
 #main_bg {
@@ -15,10 +18,26 @@
     align-items: center;
 }
 
+#rotate {
+    display: none !important;
+}
+
+/* Media query for devices with a maximum width of 600 pixels */
+@media only screen and (max-width: 539px) {
+    #main_bg {
+      background-color: rgb(214, 28, 28);
+      display: none !important;
+    }
+
+    #rotate {
+        display: block !important;
+    }
+}
+
 #form {
     background-color: rgb(255, 255, 255);
     width: 60%;
-    height: 80%;
+    height: 90%;
     border-radius: 1vw;
     box-shadow: .2vw .2vw 1.5vw rgba(163, 165, 165, 0.675);
 }
@@ -37,6 +56,11 @@
     font-size: 3vh;
 }
 
+#header img {
+    margin: 0 0 1% .8%;
+    width: 4.5vh;
+}
+
 #content {
     height: 75%;
     width: 100%;
@@ -49,8 +73,9 @@
 
 #information1 {
     width: 100%;
-    height: 40%;
+    height: 30%;
     padding: 0 3% 0 3%;
+    overflow: auto !important;
 }
 
 #information1_header {
@@ -61,23 +86,47 @@
 
 #information1_text {
     font-size: 2vh;
-    margin: 5% 0 0 0;
+    margin: 3% 0 0 0;
+    text-align: justify;
 }
 
 #information2 {
     width: 100%;
-    height: 60%; 
+    height: 70%; 
     padding: 0 3% 0 3%;
+    overflow: auto !important;
 }
 
 #information2 h5 {
-    font-size: 3vh;
+    font-size: 2.3vh;
     margin: 0 0 3% 0;
 }
 
 #information2 h6 {
-    font-size: 2.7vh;
-    font-weight: 500;
+    font-size: 2.3vh;
+    font-weight: 400;
+    text-align: justify;
+}
+
+#results {
+    width: 100%;
+    padding: 5% 0 0 0;
+    margin: 5% 0 0 0;
+    border-top: .1vw solid black;
+}
+
+#results h5{
+    font-size: 1.9vh;
+    margin: 0 0 2.5% 0;
+}
+
+#results p{
+    font-size: 1.9vh;
+    margin: 1% 0 0 0;
+}
+
+#results img {
+    width: 10%;
 }
 
 #right {
@@ -88,12 +137,17 @@
 
 #information3 {
     width: 100%;
-    height: 20%;
+    height: 15%;
+    overflow: auto;
+}
+
+#information3 h3 {
+    font-size: 2.5vh;  
 }
 
 #information4 {
     width: 100%;
-    height: 80%;
+    height: 85%;
     box-sizing: border-box;
 }
 
@@ -101,11 +155,12 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin: 3.5% 0 0 0;
+    margin: 4% 0 0 0;
 }
 
 #information4 div label {
-    font-size:2.5vh;
+    font-size:2.1vh;
+    font-weight: 500;
 }
 
 #information4 div input {
@@ -118,27 +173,92 @@
     background-color: rgb(228, 228, 228);
 }
 
+#information4 div input::placeholder {
+    font-size:2.1vh;
+}
+
 #information4 button {
     width: 100%;
-    height: 12%;
+    height: 9%;
     margin: 7% 0 10% 0;
     border-radius: .3vw;
     border: 0;
     cursor: pointer;
     background-color: cadetblue;
-    font-size: 1vw;
+    font-size: 1.5vh;
     font-weight: bold;
     color: white;
+    transition: .2s;
+}
+
+#information4 button:hover {
+    background-color: rgb(113, 186, 188);
+    box-shadow: .1vw .2vw 1vw rgba(48, 79, 80, 0.311);
+    transition: .2s;
 }
 
 #result {
     height: 15%;
     display: flex;
     justify-content: left;
-    padding: 0 0 0 1.5%;
     align-items: center;
 }
 
 #result h1 {
-    font-size: 1.7vw;
+    font-size: 2.2vh;
+    margin: 0 0 0 1.5%;
 }
+
+#result_display {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+#input_text {
+    width: 100%;
+    height: 100%;
+}
+
+/* loading */
+.lds-facebook {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-facebook div {
+    display: inline-block;
+    position: absolute;
+    width: 2vh;
+    background: #dcdcdc;
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.lds-facebook div:nth-child(1) {
+    animation-delay: -0.24s;
+}
+
+.lds-facebook div:nth-child(2) {
+    left: 30%;
+    animation-delay: -0.12s;
+}
+
+.lds-facebook div:nth-child(3) {
+    left: 60%;
+    animation-delay: 0;
+}
+
+@keyframes lds-facebook {
+    0% {
+      top: 8px;
+      height: 64px;
+    }
+    50%, 100% {
+      top: 24px;
+      height: 32px;
+    }
+}
+  

@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\63950\Desktop\bonjoc\Crop_Recommender\venv
+set VIRTUAL_ENV=C:\Users\bonjo\OneDrive\Desktop\Thesis System\Crop_Recommender\venv
 
 if not defined PROMPT set PROMPT=$P$G
 

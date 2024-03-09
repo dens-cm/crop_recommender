@@ -4,15 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
     <title>Crop Recommendation</title>
 </head>
 <body>
     <div id="main_bg">
+        <div id="rotate">
+            <h1>Rotate your phone</h1>
+        </div>
         <div id="form">
             <div id="header">
                 <h2>Crop Recommendation</h2>
-                <img src="" alt="logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
             </div>
             <div id="content">
                 <div id="left">
@@ -23,6 +30,31 @@
                     <div id="information2">
                         <h5>How does it work?</h5>
                         <h6>Complete all the parameters and the machine learning model will predict the most suitable crops to grow in a particular farm based on various parameters </h6>
+                        <div id="results">
+                            <div id="loadingIndicator" style="display: none;">
+                                <p>Analyzing inputs...</p>
+                                <div class="lds-facebook">
+                                    <div>
+                                    </div>
+                                    <div>
+                                    </div>
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="result_display">
+                                <div id="input_text">
+                                    <h5 id="result_header"></h5>
+                                    <p id="N_result"></p>
+                                    <p id="P_result"></p>
+                                    <p id="K_result"></p>
+                                    <p id="PH_result"></p>
+                                    <p id="Temp_result"></p>
+                                    <p id="Humid_result"></p>
+                                    <p id="Rainfall_result"></p>
+                                </div>
+                            </div>
+                        </div>
                     </div> 
                 </div>
                 <div id="right">
@@ -31,55 +63,41 @@
                     </div>
                     <form id="information4">
                         <div>
-                            <label for="soil">Type of soil:</label>
-                            <input required type="text" name="soil" id="soil" placeholder="Enter type of soil">
+                            <label for="">Nitrogen content in soil:</label>
+                            <input required type="number" name="N" id="N" placeholder="Enter nitrogen content">
                         </div>
                         <div>
-                            <label for="temp">Temperature:</label>
-                            <input required type="text" name="temp" id="temp" placeholder="Enter temperature">
+                            <label for="">Phosphorous content in soil:</label>
+                            <input required type="number" name="P" id="P" placeholder="Enter phosphorous content">
                         </div>
                         <div>
-                            <label for="humi">Humidity in percentage:</label>
-                            <input required type="text" name="humi" id="humi" placeholder="Enter humidity">
+                            <label for="">Potassium content in soil:</label>
+                            <input required type="number" name="K" id="K" placeholder="Enter potassium content">
                         </div>
                         <div>
-                            <label for="ph">Ph:</label>
-                            <input required type="text" name="ph" id="ph" placeholder="Enter ph">
+                            <label for="">Potential of Hydrogen (pH) content in soil:</label>
+                            <input required type="number" name="pH" id="pH" placeholder="Enter pH">
                         </div>
                         <div>
-                            <label for="rain">Rainfall in mm</label>
-                            <input required type="text" name="rain" id="rain" placeholder="Enter rainfall in mm">
+                            <label for="">Temperature:</label>
+                            <input required type="number" name="temp" id="temp" placeholder="Enter temperature">
                         </div>
-                        <button>RECOMMEND</button>
+                        <div>
+                            <label for="">Humidity:</label>
+                            <input required type="number" name="humid" id="humid" placeholder="Enter humidity">
+                        </div>
+                        <div>
+                            <label for="">Rainfall:</label>
+                            <input required type="number" name="rainfall" id="rainfall" placeholder="Enter rainfall">
+                        </div>
+                        <button type="button" id="predictButton" onclick="predict()">PREDICT</button>
                     </form>
                 </div>
             </div>
             <div id="result">
-                <h1 id="model_result">{{ result }}</h1>
+                <h1 id="predictionResult"></h1>
             </div>
         </div>
     </div>
 </body>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('information4');
-        const resultElement = document.getElementById('model_result');
-
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const formData = new FormData(form);
-
-            fetch('/', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                resultElement.innerText = data.result;
-            })
-            .catch(error => console.error('Error:', error));
-        });
-    });
-</script>
 </html>

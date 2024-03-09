@@ -1,59 +1,37 @@
 from flask import Flask, render_template, request, jsonify
-import pandas as pd
-import pickle
+import joblib
+import numpy as np
 
 app = Flask(__name__)
 
-# Load the pre-trained KNN model
-with open('knn_model.pkl', 'rb') as model_file:
-    loaded_classifier = pickle.load(model_file)
+#load the trained model
+knn_model = joblib.load('.\\model\\knn_model2.joblib')
 
-def preprocess_and_predict(user_inputs, loaded_classifier):
-    # Convert user inputs to a DataFrame
-    user_data = pd.DataFrame(user_inputs, index=[0])
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-    # One-hot encode categorical variables if needed
-    user_data_encoded = pd.get_dummies(user_data, columns=['type_of_soil'])  # Adjust the columns as needed
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        # Get input values from the request
+        input_data = request.json
+        input_values = [float(input_data['N']), float(input_data['P']), float(input_data['K']),
+                        float(input_data['pH']), float(input_data['temp']), float(input_data['humid']),
+                        float(input_data['rainfall'])]
 
-    # Ensure that the user data has the same columns as the training data
-    required_columns = ['type_of_soil', 'temperature', 'humidity', 'ph', 'rainfall']
-    for col in required_columns:
-        if col not in user_data_encoded.columns:
-            user_data_encoded[col] = 0  # Add missing columns with default value
+        # Perform the prediction using the loaded KNN model
+        prediction = knn_model.predict([input_values])[0]
 
-    # Select only the relevant columns for prediction
-    user_data_encoded = user_data_encoded[['type_of_soil', 'temperature', 'humidity', 'ph', 'rainfall']]
+        # Convert the NumPy integer to a native Python integer
+        prediction = int(prediction)
 
-    # Make predictions using the loaded KNN model
-    predictions = loaded_classifier.predict(user_data_encoded)
-
-    return predictions[0]
-
-@app.route("/", methods=['GET', 'POST'])
-def home():
-    if request.method == 'POST':
-        # Extract user inputs
-        user_inputs = {
-            'type_of_soil': request.form.get('soil'),
-            'temperature': float(request.form.get('temp', 0.0)),  # Use a default value if 'temp' is not provided
-            'humidity': float(request.form.get('humi', 0.0)),     # Use a default value if 'humi' is not provided
-            'ph': float(request.form.get('ph', 0.0)),              # Use a default value if 'ph' is not provided
-            'rainfall': float(request.form.get('rain', 0.0))       # Use a default value if 'rain' is not provided
-        }
-
-        # Predict the label
-        predicted_label = preprocess_and_predict(user_inputs, loaded_classifier)
-
-        # Mapping for numerical labels to categories
-        label_mapping = {0: 'Coffee', 1: 'Corn', 2: 'Mungbean', 3: 'Papaya', 4: 'rice'}
-        predicted_category = label_mapping[predicted_label]
-
-        # Prepare a response message
-        result_message = f"Recommended Crop: {predicted_category}"
-
-        return jsonify({'result': result_message})  # Return a JSON response for AJAX
-
-    return render_template('index.html', result='')
+        # Return the prediction as JSON
+        return jsonify({'crop': prediction})
+    
+    except Exception as e:
+        print('Error:', str(e))
+        return jsonify({'error': 'An error occurred during prediction.'}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
