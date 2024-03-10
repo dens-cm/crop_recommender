@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 #load the trained model
-knn_model = joblib.load('knn_model2.joblib')
+knn_model = joblib.load('/model/knn_model3.joblib')
 
 @app.route('/')
 def index():
