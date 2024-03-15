@@ -1,7 +1,7 @@
 Crop Recommender using KNN. 
 
-model accuracy - 87%
-dataset - https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset
+  - model accuracy - 87%
+  - dataset - https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset
   - visit the link for more details about the dataset.
 
 
